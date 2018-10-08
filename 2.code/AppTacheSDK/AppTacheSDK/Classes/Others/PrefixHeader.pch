@@ -1,0 +1,34 @@
+//
+//  PrefixHeader.pch
+//  AppTache
+//
+//  Created by  admin on 18/5/5.
+//  Copyright © 2018年  admin. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "MACMacro.h"
+#import "Singelton.h"
+#import "Utils.h"
+#import "CommTool.h"
+#import "HttpTool.h"
+#import "Masonry.h"
+#import "FJPopView.h"
+#import "NSString+FJ.h"
+#import "FJProgressHUB.h"
+#import "FJVerifyCodeButton.h"
+#import "UIView+FJExtension.h"
+#import "NSDictionary+json.h"
+#import "NSString+dictionary.h"
+#import "TSIconFont.h"
+#import "TSAppModel.h"
+#import "TSLoginModel.h"
+#import "SdkManager.h"
+#import "TSNavigationController.h"
+#import "TSWebViewController.h"
+#import "SandBoxHelper.h"
+#import "NSDate+category.h"
+
+#endif /* PrefixHeader_pch */
