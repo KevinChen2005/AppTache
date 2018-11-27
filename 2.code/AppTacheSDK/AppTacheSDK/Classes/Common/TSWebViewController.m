@@ -26,8 +26,8 @@
     // 颜色
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-    [button setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e021", 22, FJColorWhite)] forState:UIControlStateNormal];
-    [button setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e021", 22, FJColorWhite)] forState:UIControlStateHighlighted];
+    [button setImage:kIconFontImageBackWhite forState:UIControlStateNormal];
+    [button setImage:kIconFontImageBackWhite forState:UIControlStateHighlighted];
     
     [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -35,7 +35,13 @@
 
 - (void)back
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([[NSThread currentThread] isMainThread]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
+    }
 }
 
 @end

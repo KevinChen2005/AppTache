@@ -10,6 +10,7 @@
 
 @implementation TSHttpSessionRequest
 
+// POST请求下，请求体参数为json的形式
 + (void)sessionRequestDataTask:(NSString *)url andMethod:(NSString*)method andDataStr:(NSString *)pdata andblock:(SessionBlock)block
 {
     NSString* urlstring = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];//去中文
@@ -18,17 +19,19 @@
     [request setHTTPMethod:method];
     [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json;charset=UTF-8" forHTTPHeaderField:@"Accept"];
-    [request setTimeoutInterval:15];
+    [request setTimeoutInterval:30];
     if ( [method isEqualToString:@"POST"] )
     {
         [request setHTTPBody:[pdata dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     NSURLSession* session = [NSURLSession sharedSession];
+    NSLog(@"session=%@", session);
     NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:block];
     [task resume];
 }
 
+// POST请求下，请求体参数为key1=value1&key2=value2...的形式
 + (void)sessionRequestDataTask:(NSString *)url andMethod:(NSString*)method andDictData:(NSDictionary *)params andblock:(SessionBlock)block
 {
     NSString* paramsString = @"";
@@ -50,13 +53,14 @@
     NSURL* sendurl = [NSURL URLWithString:urlstring];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:sendurl];
     [request setHTTPMethod:method];
-    [request setTimeoutInterval:15];
+    [request setTimeoutInterval:30];
     if ( [method isEqualToString:@"POST"] )
     {
         [request setHTTPBody:[paramsString dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     NSURLSession* session = [NSURLSession sharedSession];
+    NSLog(@"session=%@", session);
     NSURLSessionDataTask* task = [session dataTaskWithRequest:request completionHandler:block];
     [task resume];
 }

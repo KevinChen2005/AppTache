@@ -101,17 +101,19 @@
         [self setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     }
     
-    if ([self superview] != nil)
+//    if ([self superview] != nil)
     {
         //if (((int)previousOrientation == (int)previousOrientation) && ((int)[UIDevice currentDevice].orientation) == (int)orientation) {
         if ((UIInterfaceOrientationIsLandscape(previousOrientation) && UIInterfaceOrientationIsPortrait(orientation))
-            || (UIInterfaceOrientationIsLandscape(orientation) && UIInterfaceOrientationIsPortrait(previousOrientation))) {
-            if (iphoneX) { //判断iPhone X
+            || (UIInterfaceOrientationIsLandscape(orientation) && UIInterfaceOrientationIsPortrait(previousOrientation))
+//            || previousOrientation != orientation
+            ) {
+            if (IS_IPhoneX_All) { //判断iPhone X
                 CGFloat height = 15;
                 if (orientation == UIInterfaceOrientationLandscapeRight) { //刘海在左边
                     if (_preFrame.origin.x < 50 ) {
                         //                        }
-                        [_toolBar setFrame:CGRectMake(20, _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+                        [_toolBar setFrame:CGRectMake(0, _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
                     }
                     else {
                         [_toolBar setFrame:CGRectMake(screenWidth-[_toolBar getLogoWidth], _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
@@ -144,19 +146,47 @@
         }
         else
         {
+            if (IS_IPhoneX_All) { //判断iPhone X
+                CGFloat height = 15;
+                if (orientation == UIInterfaceOrientationLandscapeRight) { //刘海在左边
+                    if (_preFrame.origin.x < 50 ) {
+                        //                        }
+                        [_toolBar setFrame:CGRectMake(0, _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+                    }
+                    else {
+                        [_toolBar setFrame:CGRectMake(screenWidth-[_toolBar getLogoWidth], _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+                    }
+                } else if (orientation == UIInterfaceOrientationLandscapeLeft){ //刘海在右边
+                    if (_preFrame.origin.x < 50) {
+                        [_toolBar setFrame:CGRectMake(0, _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+                    }
+                    else {
+                        [_toolBar setFrame:CGRectMake(screenWidth-[_toolBar getLogoWidth] - height, _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+                    }
+                } else {
+                    if (_preFrame.origin.x < 50) {
+                        [_toolBar setFrame:CGRectMake(0, _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+                    }
+                    else {
+                        [_toolBar setFrame:CGRectMake(screenWidth-[_toolBar getLogoWidth], _preFrame.origin.y*screenHeight/screenWidth, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+                    }
+                }
+            } else 
+            {
             if (_preFrame.origin.x < 20) {
                 [_toolBar setFrame:CGRectMake(0, _preFrame.origin.y, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
             }
             else {
                 [_toolBar setFrame:CGRectMake(screenWidth-[_toolBar getLogoWidth], _preFrame.origin.y, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
             }
+            }
             
         }
         //[_toolBar setFrame:CGRectMake(0, 0, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
     }
-    else {
-        //[_toolBar setFrame:CGRectMake(0, 0, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
-    }
+//    else {
+//        //[_toolBar setFrame:CGRectMake(0, 0, [_toolBar getLogoWidth], [_toolBar getLogoHeight])];
+//    }
 
     [_toolBar showMenu];
     

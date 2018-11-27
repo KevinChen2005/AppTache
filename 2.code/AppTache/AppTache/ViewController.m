@@ -28,6 +28,7 @@
 {
     [[AppTacheSDK sharedInstance] setDelegate:self];
     [[AppTacheSDK sharedInstance] initSdkWithGameCode:@"OGjIDRXJ1p" platformId:@"1000"];
+//    [[AppTacheSDK sharedInstance]  initSdkWithGameCode: @"7LkgmdumXu" platformId:@"000211"];
 }
 
 - (IBAction)onClickLoginBtn:(id)sender
@@ -37,7 +38,7 @@
 
 - (IBAction)onClickPayBtn:(id)sender
 {
-    NSString* cpOrderNo = [NSString stringWithFormat:@"zxt%d", (arc4random() % 1000001) + 9000000];
+    NSString* cpOrderId = [NSString stringWithFormat:@"zxt%d", (arc4random() % 1000001) + 9000000];
     NSString* itemId     = @"xxlyf.648"; //内购
 //    NSString* itemId     = @"com.xsm2.10"; //资讯通
     NSString* itemName   = @"10元宝";
@@ -54,7 +55,7 @@
                              @"itemName"    :  itemName,
                              @"currency"    :  currency,
                              @"price"       :  price,
-                             @"cpOrderNo"   :  cpOrderNo,
+                             @"cpOrderId"   :  cpOrderId,
                              @"roleId"      :  roleId,
                              @"roleName"    :  roleName,
                              @"serverId"    :  serverId,

@@ -3,7 +3,7 @@
 //  AppTache
 //
 //  Created by admin on 2018/7/13.
-//  Copyright © 2018年 com.langlun. All rights reserved.
+//  Copyright © 2018年 com.apptache. All rights reserved.
 //
 
 #import "NSString+FJ.h"

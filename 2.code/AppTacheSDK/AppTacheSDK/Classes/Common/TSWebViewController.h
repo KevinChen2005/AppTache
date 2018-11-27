@@ -10,6 +10,9 @@
 
 @interface TSWebViewController : FJBaseWebViewController
 
+/**
+ 左上角返回
+ */
 - (void)back;
 
 @end

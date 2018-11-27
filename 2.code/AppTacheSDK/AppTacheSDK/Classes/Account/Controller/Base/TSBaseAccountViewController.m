@@ -96,9 +96,9 @@
     [self.titleView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(self.view);
         if (kScreenWidth<kScreenHeight) {
-            make.top.mas_equalTo(self.view).offset((iphoneX||isIpad) ? 84 : 64);
+            make.top.mas_equalTo(self.view).offset((IS_IPhoneX_All||isIpad) ? 84 : 64);
         } else {
-            make.top.mas_equalTo(self.view).offset((iphoneX||isIpad) ? 55 : 35);
+            make.top.mas_equalTo(self.view).offset((IS_IPhoneX_All||isIpad) ? 55 : 35);
         }
         
         if (self.titles == nil || self.titles.count == 0) {

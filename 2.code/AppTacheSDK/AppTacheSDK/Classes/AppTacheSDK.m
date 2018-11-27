@@ -62,7 +62,7 @@ static AppTacheSDK* _instance = nil;
     [TSAppModel shareInstance].gameCode = [CommTool safeString:gameCode];
     [TSAppModel shareInstance].platformId = [CommTool safeString:platformId];
     
-    // 激活 （打点）
+    // 激活 （打点） 只安装后第一次运行才会统计
     NSString* tempValue = [[NSUserDefaults standardUserDefaults] objectForKey:kDataActiveKey];
     if (tempValue == nil || ![tempValue isEqualToString:kDataActiveValue])
     {
@@ -77,6 +77,7 @@ static AppTacheSDK* _instance = nil;
     
     _isInit = YES;
     
+    // 初始化成功回调
     if ([_delegate respondsToSelector:@selector(appTacheSdkDidInitSuccess)]) {
         [_delegate appTacheSdkDidInitSuccess];
     }
@@ -136,14 +137,15 @@ static AppTacheSDK* _instance = nil;
 /*
  支付
  
- @param1: money       商品价格;
+ 参数params字典key值：
+ @param1: price       商品价格, 单位：分;
  @param2: roleId      角色ID;
  @param3: roleName    角色名称;
  @param4: serverId    服务器id;
  @param5: serverName  服务器名称
  @param6: extInfo     扩展参数
  @param7: currency    货币类型
- @param8: cpOrderNo   cp订单号
+ @param8: cpOrderId   cp订单号
  */
 - (void)requestPay:(NSDictionary*)params
 {
@@ -161,11 +163,12 @@ static AppTacheSDK* _instance = nil;
 /*
  数据打点
  
- @param1: serverId   服务器ID;
- @param2: serverName 服务器名称;
- @param3: roleId     角色ID;
- @param4: roleName   角色名称;
- @param4: roleLevel  角色等级;
+ 参数params字典key值：
+ @param1: cpServerId   服务器ID;
+ @param2: cpServerName 服务器名称;
+ @param3: cpRoleId     角色ID;
+ @param4: cpRoleName   角色名称;
+ @param4: level        角色等级;
  */
 - (void)addDataType:(ATDataType)type params:(NSDictionary*)params
 {

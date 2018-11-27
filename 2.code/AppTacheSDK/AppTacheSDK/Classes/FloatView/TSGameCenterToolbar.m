@@ -10,8 +10,6 @@
 //展开菜单view的标记
 #define MENUBGTAG 1
 
-#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125,2436), [[UIScreen mainScreen] currentMode].size) : NO)
-
 #define kPathOfFloatIcon ([self getFilePath:@"AppTacheSDK.bundle/images/tu_ic_dq_float" andType:@".png"])
 
 typedef NS_ENUM (NSUInteger, LocationTag)
@@ -24,19 +22,19 @@ typedef NS_ENUM (NSUInteger, LocationTag)
 
 @interface TSGameCenterToolbar ()
 {
-    UIView *_bannerMenuV;//展开菜单的view
-    TSIconView *_bannerIV;//浮标的imageview
+    UIView *_bannerMenuV;  //展开菜单的view
+    TSIconView *_bannerIV; //浮标的imageview
     
-    BOOL _bShowMenu;//是否在展开了菜单，展开时不允许移动浮标
-    BOOL _bMoving;//是否在移动浮标
+    BOOL _bShowMenu; //是否在展开了菜单，展开时不允许移动浮标
+    BOOL _bMoving;   //是否在移动浮标
     
     float _w;
     float _h;
     
-    float _nLogoWidth;//浮标的宽度
-    float _nLogoHeight;//浮标的高度
-    float _nMenuWidth;//菜单栏的宽度
-    float _nMenuHeight;//菜单栏的高度＝＝浮标的宽度
+    float _nLogoWidth;  //浮标的宽度
+    float _nLogoHeight; //浮标的高度
+    float _nMenuWidth;  //菜单栏的宽度
+    float _nMenuHeight; //菜单栏的高度＝＝浮标的宽度
     
     int _movenums;//展开浮标,6s移动事件过于灵敏，用作判断
     
@@ -114,7 +112,7 @@ typedef NS_ENUM (NSUInteger, LocationTag)
     
     [_accountBtn setTitle:@"账户" forState:UIControlStateNormal];
     [_accountBtn setTitleColor:FJBlackTitle forState:UIControlStateNormal];
-    [_accountBtn setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e004", 22, FJColorBlack)] forState:UIControlStateNormal];
+    [_accountBtn setImage:kIconFontImageUserBlack forState:UIControlStateNormal];
     
     _accountBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     _accountBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -_accountBtn.imageView.frame.size.width, -_accountBtn.imageView.frame.size.height, 0);
@@ -240,7 +238,11 @@ typedef NS_ENUM (NSUInteger, LocationTag)
         CGPoint pt = [self ValidPoint:self.center];
         if (self.frame.origin.x < 20)
         {
-            pt.x = -5;
+            if (IS_IPhoneX_All && ([self currentOrientation] == UIInterfaceOrientationLandscapeRight)) {
+                pt.x = -5 + 34;
+            } else {
+                pt.x = -5;
+            }
         }
         [self setCenter:pt];
     }
@@ -287,13 +289,13 @@ typedef NS_ENUM (NSUInteger, LocationTag)
         } else {
             path = kPathOfFloatIcon;
             [_bannerMenuV setFrame:CGRectMake(0, 0, 0, _nMenuHeight)];
-            
+
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
                 [_accountBtn setFrame:CGRectMake(_nMenuWidth-5-36, 12, 36, 40)];
             } else {
                 [_accountBtn setFrame:CGRectMake(_nMenuWidth-5-36, 18, 36, 40)];
             }
-            
+
             [UIView animateWithDuration:times animations:^
              {
                  [self setFrame:CGRectMake(self.frame.origin.x - self->_nMenuWidth, self.frame.origin.y, self->_nMenuWidth + self->_nLogoWidth, self->_nMenuHeight)];
@@ -396,13 +398,19 @@ typedef NS_ENUM (NSUInteger, LocationTag)
     if (m.y > _h - _bannerIV.frame.size.height/2)
         m.y = _h - _bannerIV.frame.size.height/2;
     
-    if (iPhoneX && ([self currentOrientation] == UIInterfaceOrientationLandscapeLeft || [self currentOrientation] == UIInterfaceOrientationLandscapeRight)) {
+    if (IS_IPhoneX_All && ([self currentOrientation] == UIInterfaceOrientationLandscapeLeft )) {
         if (m.x >= _w + 5) {
             m.x = _w + 5-34;
         } else {
+            m.x = -5;
+        }
+    } else if (IS_IPhoneX_All && ([self currentOrientation] == UIInterfaceOrientationLandscapeRight)) {
+        if (m.x >= _w + 5) {
+            m.x = _w + 5;
+        } else {
             m.x = -5 + 34;
         }
-    } else {
+    } else{
         if (m.x >= _w + 5) {
             m.x = _w + 5;
         } else {
@@ -602,10 +610,19 @@ typedef NS_ENUM (NSUInteger, LocationTag)
         
         [UIView animateWithDuration:0.5 animations:^{
             if (self.fj_x == 0) {
-                self.fj_centerX = 0;
+                if (IS_IPhoneX_All && ([self currentOrientation] == UIInterfaceOrientationLandscapeRight)) {
+                    self.fj_centerX = 34;
+                } else {
+                    self.fj_centerX = 0;
+                }
             }
             if (self.fj_x == kScreenWidth - self.fj_width) {
-                self.fj_centerX = kScreenWidth;
+                if (IS_IPhoneX_All && ([self currentOrientation] == UIInterfaceOrientationLandscapeLeft)) {
+                    self.fj_centerX = kScreenWidth - 34;
+                } else {
+                    self.fj_centerX = kScreenWidth;
+                }
+                
             }
         }];
     }

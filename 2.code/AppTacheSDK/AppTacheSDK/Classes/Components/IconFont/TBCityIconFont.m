@@ -13,20 +13,26 @@
 
 static NSString *_fontName;
 
-+ (void)registerFontWithURL:(NSURL *)url {
-    NSAssert([[NSFileManager defaultManager] fileExistsAtPath:[url path]], @"Font file doesn't exist");
-    CGDataProviderRef fontDataProvider = CGDataProviderCreateWithURL((__bridge CFURLRef)url);
-    CGFontRef newFont = CGFontCreateWithDataProvider(fontDataProvider);
++ (void)registerFont {
+    //获取路径
+    NSString * path = [[NSBundle mainBundle] pathForResource:@"AppTacheSDK" ofType:@"bundle"];
+    NSString *fontFileUrl = [path stringByAppendingPathComponent:@"iconfont/iconfont.ttf"];
+    
+    NSAssert([[NSFileManager defaultManager] fileExistsAtPath:fontFileUrl], @"Font file doesn't exist");
+    
+    CFURLRef fontURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (__bridge CFStringRef)fontFileUrl, kCFURLPOSIXPathStyle, false);
+    
+    CGDataProviderRef fontDataProvider = CGDataProviderCreateWithURL(fontURL);
+    CGFontRef fontRef = CGFontCreateWithDataProvider(fontDataProvider);
     CGDataProviderRelease(fontDataProvider);
-    CTFontManagerRegisterGraphicsFont(newFont, nil);
-    CGFontRelease(newFont);
+    CTFontManagerRegisterGraphicsFont(fontRef, NULL);
+    CGFontRelease(fontRef);
 }
 
 + (UIFont *)fontWithSize:(CGFloat)size {
     UIFont *font = [UIFont fontWithName:[self fontName] size:size];
     if (font == nil) {
-        NSURL *fontFileUrl = [[NSBundle mainBundle] URLForResource:[self fontName] withExtension:@"ttf"];
-        [self registerFontWithURL: fontFileUrl];
+        [self registerFont];
         font = [UIFont fontWithName:[self fontName] size:size];
         NSAssert(font, @"UIFont object should not be nil, check if the font file is added to the application bundle and you're using the correct font name.");
     }

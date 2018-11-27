@@ -75,7 +75,7 @@ SingleH
 /**
  请求商品列表
  */
-- (void)requestProductWithId:(NSString *)productId orderId:(NSString*)orderId account:(NSString*)account cpOrderNo:(NSString*)cpOrderNo price:(NSString*)price extInfo:(NSString*)extInfo;
+- (void)requestProductWithId:(NSString *)productId orderId:(NSString*)orderId account:(NSString*)account cpOrderId:(NSString*)cpOrderId price:(NSString*)price extInfo:(NSString*)extInfo;
 
 /**
  支付成功后移除本地保存的receipt

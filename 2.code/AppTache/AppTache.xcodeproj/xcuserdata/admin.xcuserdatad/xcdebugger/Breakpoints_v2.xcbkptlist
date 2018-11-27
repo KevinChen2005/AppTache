@@ -9,13 +9,61 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../AppTacheSDK/AppTacheSDK/Classes/Http/TSHttpSessionRequest.m"
-            timestampString = "559828443.617038"
+            filePath = "../AppTacheSDK/AppTacheSDK/Classes/FloatView/TSGameCenterToolbar.m"
+            timestampString = "562128782.943766"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "+sessionRequestDataTask:andMethod:andDictData:andblock:"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "-showMenu:time:complete:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../AppTacheSDK/AppTacheSDK/Classes/FloatView/TSGameCenterToolbar.m"
+            timestampString = "562128782.9442509"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "-showMenu:time:complete:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../AppTacheSDK/AppTacheSDK/Classes/FloatView/TSGameCenterToolbarView.m"
+            timestampString = "562057860.848492"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "-sizeToFitOrientation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../AppTacheSDK/AppTacheSDK/Classes/FloatView/TSGameCenterToolbar.m"
+            timestampString = "562128782.944586"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "-showMenuExt:time:complete:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

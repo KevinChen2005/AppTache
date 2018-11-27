@@ -21,9 +21,10 @@
 }
 
 @property (nonatomic, strong)TSGameCenterToolbarView* toolBarView;
-@property (nonatomic, copy)NSString* serialNo;
 @property (nonatomic, strong)NSDictionary* deviceInfo;
 @property (nonatomic, strong)NSDictionary* tradeInfo;  //记录传进来支付参数
+
+@property (nonatomic, copy)NSString* serialNo;
 
 @end
 
@@ -132,7 +133,7 @@ SingleM
             TSLoginModel* loginResult = [TSLoginModel fj_objectWithDictionary:retObj];
             if (loginResult.isSuccess) {
                 [TSLoginModel shareInstance].password = password;
-                [CommTool showStaus:loginResult.msg withType:TSMessageTypeInfo];
+//                [CommTool showStaus:loginResult.msg withType:TSMessageTypeInfo];
                 
                 [strongSelf _loginSuccess:success];
                 if ([strongSelf.delegate respondsToSelector:@selector(sdkManagerDidLoginSuccess:)]) {
@@ -221,7 +222,11 @@ SingleM
                 [TSLoginModel shareInstance].password = FJTextSDKInitPwd;
 //                [CommTool showStaus:@"游客登录成功" withType:TSMessageTypeInfo];
                 
-                [strongSelf registSuccess:success];
+                [strongSelf registSuccess:^{
+                    NSString* info = [NSString stringWithFormat:@"游客登录成功,请牢记账号：%@ 密码：%@", account, FJTextSDKInitPwd];
+                    [CommTool showStaus:info withType:TSMessageTypeInfo];
+                    success();
+                }];
             } else {
                 [CommTool showStaus:@"游客登录失败" withType:TSMessageTypeError];
             }
@@ -258,6 +263,7 @@ SingleM
                 NSString* json = dict[@"account"];
                 NSDictionary* accountDict = [NSDictionary dictionaryWithJsonString:json];
                 NSString* accountRet = accountDict[@"account"];
+                
                 //获取账号信息（登录状态）
                 if ([accountRet isEqualToString:account]) {
                     [TSLoginModel shareInstance].phone = accountDict[@"phone"];
@@ -277,7 +283,7 @@ SingleM
                 [CommTool showStaus:msg withType:TSMessageTypeError];
             }
         } else {
-            [CommTool showStaus:@"登录失败" withType:TSMessageTypeError];
+            [CommTool showStaus:@"获取账号信息失败" withType:TSMessageTypeError];
         }
     } failure:^(NSError *error) {
         DLog(@"error=%@", error);
@@ -369,6 +375,9 @@ SingleM
                 [TSLoginModel shareInstance].password = pwd;
                 [TSLoginModel shareInstance].token = token;
                 
+                [Utils addCurContent:account password:pwd refreshToken:token time:[CommTool getTimeStamp]];
+                [Utils addContent:account refreshToken:token time:[CommTool getTimeStamp] password:password];
+                
                 [CommTool showStaus:msg withType:TSMessageTypeInfo];
                 
                 if (success) {
@@ -391,9 +400,9 @@ SingleM
 
 - (void)sdkLogout:(SuccessBlock)success
 {
-    NSString* account = [TSLoginModel shareInstance].account;
+    NSString* account  = [TSLoginModel shareInstance].account;
     NSString* password = [TSLoginModel shareInstance].password;
-    NSString* token = [TSLoginModel shareInstance].token;
+    NSString* token    = [TSLoginModel shareInstance].token;
     NSString* gameCode = [TSAppModel shareInstance].gameCode;
     
     WEAKSELF
@@ -447,6 +456,16 @@ SingleM
     
     [Utils addCurContent:account password:password refreshToken:token time:[CommTool getTimeStamp]];
     [Utils addContent:account refreshToken:token time:[CommTool getTimeStamp] password:password];
+    
+    // 获取账号和手机号绑定关系
+    [self sdkGetAccountInfoWithAccount:account password:password token:token success:^{
+        if (![TSLoginModel shareInstance].isBindPhone) {//没有绑定手机，提示绑定手机
+            [CommTool showStaus:@"登录成功，为了更好的保障账号安全，请绑定手机" withType:TSMessageTypeInfo];
+        } else {
+            [CommTool showStaus:@"登录成功" withType:TSMessageTypeInfo];
+        }
+            
+    }];
 }
 
 - (void)_logoutSuccess:(SuccessBlock)success
@@ -602,6 +621,7 @@ SingleM
         dispatch_async(dispatch_get_main_queue(), ^{
             [self _showFloatView];
         });
+        
     }
 }
 
@@ -687,6 +707,7 @@ SingleM
 
 - (void)sdkDataActive:(NSDictionary*)params success:(SuccessBlock)success
 {
+    // 1：初始化(激活)
     [self dataReportWithType:1 params:params success:^{
         DLog(@"actice success");
         if (success) {
@@ -697,6 +718,7 @@ SingleM
 
 - (void)sdkDataCreateRole:(NSDictionary*)params success:(SuccessBlock)success
 {
+    // 12：创角
     [self dataReportWithType:12 params:params success:^{
         DLog(@"create role success");
         if (success) {
@@ -707,6 +729,7 @@ SingleM
 
 - (void)sdkDataEnterGame:(NSDictionary*)params success:(SuccessBlock)success
 {
+    // 13：角色登录
     [self dataReportWithType:13 params:params success:^{
         DLog(@"enter game success");
         if (success) {
@@ -722,6 +745,7 @@ SingleM
 
 - (void)sdkDataLevelUp:(NSDictionary*)params success:(SuccessBlock)success
 {
+    // 14：等级变化
     [self dataReportWithType:14 params:params success:^{
         DLog(@"leveup success");
         if (success) {
@@ -831,10 +855,10 @@ SingleM
     } else {
         dictRst = [NSMutableDictionary dictionary];
     }
-    NSString* cpNo = self.tradeInfo[@"cpOrderNo"];
+    NSString* cpNo    = self.tradeInfo[@"cpOrderId"];
     NSString* extInfo = self.tradeInfo[@"extInfo"];
     
-    [dictRst setObject:[CommTool safeString:cpNo] forKey:@"cpOrderNo"];
+    [dictRst setObject:[CommTool safeString:cpNo] forKey:@"cpOrderId"];
     [dictRst setObject:[CommTool safeString:extInfo] forKey:@"extInfo"];
     
     return [dictRst copy];

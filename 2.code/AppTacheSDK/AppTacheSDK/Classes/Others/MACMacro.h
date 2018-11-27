@@ -14,7 +14,7 @@
 //#   define DLog(...)
 //#endif
 
-#define kSdkVersion    @"1.0.1"
+#define kSdkVersion    @"1.0.6"
 
 #define WEAKSELF typeof(self) __weak weakSelf = self;
 #define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;
@@ -36,6 +36,7 @@
 #endif
 #define kUrl(sub) [NSString stringWithFormat:@"%@/%@", URL_MAIN, sub]
 
+//用户协议URL
 #define kUrlUserProtocol @"http://www.fjzixun.com/contract.html"
 
 //闪屏后启动时间（广告时间）
@@ -43,21 +44,21 @@
 
 //-------------------颜色和字体----------------
 #define FJRGBColor(r, g, b) [UIColor colorWithRed:(r) / 255.0 green:(g) / 255.0 blue:(b) / 255.0 alpha:1]
-#define FJGlobalBG FJRGBColor(245, 245, 245)
+#define FJGlobalBG            FJRGBColor(245, 245, 245)
 #define FJColorLoginOrange    FJRGBColor(246, 135, 0)
 #define FJColorLoginBlue      FJRGBColor(79, 181, 229)
 #define FJColorLoginRed       FJRGBColor(243, 0, 0)
 
-#define FJColorWhite     [UIColor whiteColor]
-#define FJColorBlack     [UIColor blackColor]
-#define FJColorRed       [UIColor redColor]
-#define FJColorLightGray [UIColor lightGrayColor]
-#define FJColorDarkGray  [UIColor darkGrayColor]
+#define FJColorWhite          [UIColor whiteColor]
+#define FJColorBlack          [UIColor blackColor]
+#define FJColorRed            [UIColor redColor]
+#define FJColorLightGray      [UIColor lightGrayColor]
+#define FJColorDarkGray       [UIColor darkGrayColor]
 
-#define FJBlueStyleColor FJRGBColor(0x58, 0x81, 0xBF)
-#define FJBlackTitle     FJRGBColor(0x33, 0x33, 0x33)
-#define FJBlackContent   FJRGBColor(0x66, 0x66, 0x66)
-#define FJBlackAuthor    FJRGBColor(0x99, 0x99, 0x99)
+#define FJBlueStyleColor      FJRGBColor(0x58, 0x81, 0xBF)
+#define FJBlackTitle          FJRGBColor(0x33, 0x33, 0x33)
+#define FJBlackContent        FJRGBColor(0x66, 0x66, 0x66)
+#define FJBlackAuthor         FJRGBColor(0x99, 0x99, 0x99)
 
 #define FJNavbarItemFont [UIFont systemFontOfSize:14]
 
@@ -68,6 +69,27 @@
 #define FJTextSDKInitPwdTips    @"如未修改初始密码，默认初始密码为666666"
 #define FJTextSDKInitPwd        @"666666"
 
+//-----------------iconfont图标-------------
+//返回图标-白色
+#define kIconFontImageBackWhite  [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e021", 22, FJColorWhite)]
+//用户图标-黑色
+#define kIconFontImageUserBlack  [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e004", 22, FJColorBlack)]
+//修改密码图标
+#define kIconFontImageChangePwdBlack [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e003", 22, FJColorBlack)]
+//安全图标
+#define kIconFontImageSafetyBlack   [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e000", 22, FJColorBlack)]
+//解绑图标
+#define kIconFontImageUnBindBlack   [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e005", 22, FJColorBlack)]
+//注销图标
+#define kIconFontImageLogoutBlack   [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e010", 22, FJColorBlack)]
+//向下箭头图标
+#define kIconFontImageArrowDownGray [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e022", 22, FJColorDarkGray)]
+//向上箭头图标
+#define kIconFontImageArrowUpGray   [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e023", 22, FJColorDarkGray)]
+//隐藏密码图标
+#define kIconFontImageHidePwdGray   [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e025", 22, FJColorDarkGray)]
+//显示密码图标
+#define kIconFontImageShowPwdGray   [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e024", 22, FJColorDarkGray)]
 
 //富文本编辑 图片标识
 #define RICHTEXT_IMAGE (@"[UIImageView]")
@@ -106,13 +128,25 @@
 
 //-------------------设备相关----------------
 #pragma mark - 设备相关
+//判断竖屏
+#define IsPortrait ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown)
+
 #define isIpad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 //判断是什么大小的机型 4，4s ; 5,5s ; 6,6s ; 6+,6+s ; iphoneX
 #define iphone4s CGSizeEqualToSize(CGSizeMake(640,960), [[UIScreen mainScreen]currentMode].size)
 #define iphone5 CGSizeEqualToSize(CGSizeMake(640,1136), [[UIScreen mainScreen]currentMode].size)
 #define iphone6 CGSizeEqualToSize(CGSizeMake(750,1334), [[UIScreen mainScreen]currentMode].size)
 #define iphone6Plus CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen]currentMode].size)
+
+//判断iPhoneX iPhoneXs
 #define iphoneX CGSizeEqualToSize(CGSizeMake(1125,2436), [[UIScreen mainScreen] currentMode].size)
+//判断iPHoneXr
+#define SCREENSIZE_IS_XR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) && !isIpad : NO)
+#define SCREENSIZE_IS_XR_1 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1624), [[UIScreen mainScreen] currentMode].size) && !isIpad : NO)
+//判断iPhoneXs Max
+#define SCREENSIZE_IS_XS_MAX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !isIpad : NO)
+
+#define IS_IPhoneX_All (iphoneX || SCREENSIZE_IS_XR || SCREENSIZE_IS_XR_1 || SCREENSIZE_IS_XS_MAX)
 
 //获取屏幕宽度、高度
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)

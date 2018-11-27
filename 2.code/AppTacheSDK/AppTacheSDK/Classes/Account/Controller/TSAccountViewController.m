@@ -54,8 +54,8 @@
     // 颜色
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-    [button setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e021", 22, FJColorWhite)] forState:UIControlStateNormal];
-    [button setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e021", 22, FJColorWhite)] forState:UIControlStateHighlighted];
+    [button setImage:kIconFontImageBackWhite forState:UIControlStateNormal];
+    [button setImage:kIconFontImageBackWhite forState:UIControlStateHighlighted];
     
     [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -64,7 +64,7 @@
     
     // 2.1 修改密码
     TSAccountModel* modifyPwd = [TSAccountModel new];
-    modifyPwd.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e003", 22, FJColorBlack)];
+    modifyPwd.image = kIconFontImageChangePwdBlack;
     modifyPwd.title = @"修改密码";
     modifyPwd.operation = ^(){
         TSModifyPasswordViewController* modifyPwdVC = [TSModifyPasswordViewController new];
@@ -75,7 +75,7 @@
     
     // 2.2 账号安全
     TSAccountModel* accountSecuret = [TSAccountModel new];
-    accountSecuret.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e000", 22, FJColorBlack)];
+    accountSecuret.image = kIconFontImageSafetyBlack;
     accountSecuret.title = @"账号安全";
     accountSecuret.operation = ^(){
         TSBindAccountViewController* bindVC = [TSBindAccountViewController new];
@@ -88,7 +88,7 @@
     
     // 2.3 账号解绑
     TSAccountModel* unbind = [TSAccountModel new];
-    unbind.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e005", 22, FJColorBlack)];
+    unbind.image = kIconFontImageUnBindBlack;
     unbind.title = @"账号解绑";
     unbind.operation = ^(){
         TSBindAccountViewController* unbindVC = [TSBindAccountViewController new];
@@ -101,7 +101,7 @@
     
     // 2.4 注销登录
     TSAccountModel* logout = [TSAccountModel new];
-    logout.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e010", 22, FJColorBlack)];
+    logout.image = kIconFontImageLogoutBlack;
     logout.title = @"注销登录";
     logout.operation = ^(){
         [self logout];

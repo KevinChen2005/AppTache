@@ -1,6 +1,6 @@
 //
 //  TSAppstorePay.m
-//  funcell_framework
+//  AppTache
 //
 //  Created by admin on 17/6/15.
 //  Copyright © 2017年 zzw. All rights reserved.
@@ -55,13 +55,13 @@ static TSAppstorePay* FCshareView = nil;
     NSString * price     = [params objectForKey:@"price"];
     NSString * orderId   = [params objectForKey:@"orderId"];
     NSString * extInfo   = [params objectForKey:@"extInfo"];     //保存下来，支付成功回调
-    NSString * cpOrderNo = [params objectForKey:@"cpOrderNo"]; //保存下来，支付成功回调
+    NSString * cpOrderId = [params objectForKey:@"cpOrderId"];   //保存下来，支付成功回调
     NSString * account   = [TSLoginModel shareInstance].account;
     
     [FJProgressHUB showWithMaskMessage:nil];
     
     // 传入订单账号信息，防止支付成功掉单后补单验单时信息不对称
-    [[IAPManager shareInstance] requestProductWithId:itemId orderId:orderId account:account cpOrderNo:cpOrderNo price:price extInfo:extInfo];
+    [[IAPManager shareInstance] requestProductWithId:itemId orderId:orderId account:account cpOrderId:cpOrderId price:price extInfo:extInfo];
 }
 
 #pragma mark IApRequestResultsDelegate
@@ -141,7 +141,7 @@ static TSAppstorePay* FCshareView = nil;
     
     NSString* account    = [CommTool safeString:iapmodel.account];
     NSString* extInfo    = [CommTool safeString:iapmodel.extInfo];
-    NSString* cpOrderNo  = [CommTool safeString:iapmodel.cpOrderNo];
+    NSString* cpOrderId  = [CommTool safeString:iapmodel.cpOrderId];
     NSString* orderId    = [CommTool safeString:iapmodel.orderId];
     NSString* receipt    = [CommTool safeString:iapmodel.receipt];
     NSString* price      = [CommTool safeString:iapmodel.price];
@@ -160,6 +160,8 @@ static TSAppstorePay* FCshareView = nil;
     [params setObject:gameCode   forKey:@"gameCode"];
     [params setObject:platformId forKey:@"platformId"];
     
+    DLog(@"checkIapReceipt params=%@", params);
+    
     WEAKSELF
     [HttpTool checkIapReceipt:params success:^(id retObj) {
         STRONGSELF
@@ -169,7 +171,7 @@ static TSAppstorePay* FCshareView = nil;
         
         NSDictionary* dictRet = @{
                                   @"orderId"    :  orderId,
-                                  @"cpOrderNo"  :  cpOrderNo,
+                                  @"cpOrderId"  :  cpOrderId,
                                   @"extInfo"    :  extInfo,
                                   @"price"      :  price,
                                   @"payMethodCode"    :  payMethodCode,
@@ -209,38 +211,52 @@ static TSAppstorePay* FCshareView = nil;
     switch (success) {
         case 1: // 校验成功
         {
-            [CommTool showStaus:@"支付成功" withType:TSMessageTypeInfo];
+            msg = @"支付成功";
             
-            [self iapSuccess:finalDict];
-            
-            // 删除本地票据
-            [[IAPManager shareInstance] removeReceipt];
+            [self dealSuccessMessage:msg finalDict:finalDict];
         }
             break;
             
         case 0: // 校验失败
         {
-            if (msg == nil || [msg isEqualToString:@""]) { msg = @"支付失败"; }
+            msg = @"支付失败, 校验票据失败";
             
-            [CommTool showStaus:msg withType:TSMessageTypeError];
-            
-            [self iapFail:finalDict];
+            [self dealFailMessage:msg finalDict:finalDict isDeleteReceipt:NO];
         }
             break;
         case 2: // 未查询到订单
+        {
+            msg = @"支付失败，未查询到订单";
+            
+            [self dealFailMessage:msg finalDict:finalDict isDeleteReceipt:YES];
+        }
+            break;
         case 3: // 订单已经校验过
+        {
+            msg = @"支付失败，订单已经校验过";
+            
+            [self dealFailMessage:msg finalDict:finalDict isDeleteReceipt:YES];
+        }
+            break;
         case 4: // 无此订单支付信息
+        {
+            msg = @"支付失败，无此订单支付信息";
+            
+            [self dealFailMessage:msg finalDict:finalDict isDeleteReceipt:YES];
+        }
+            break;
         case 5: // 凭证无效
+        {
+            msg = @"支付失败，凭证无效";
+            
+            [self dealFailMessage:msg finalDict:finalDict isDeleteReceipt:YES];
+        }
+            break;
         case 6: // receipt凭证不正确
         {
-            if (msg == nil || [msg isEqualToString:@""]) { msg = @"支付失败"; }
+            msg = @"支付失败，凭证不正确";
             
-            [CommTool showStaus:msg withType:TSMessageTypeError];
-            
-            [self iapFail:finalDict];
-            
-            // 删除本地票据
-            [[IAPManager shareInstance] removeReceipt];
+            [self dealFailMessage:msg finalDict:finalDict isDeleteReceipt:YES];
         }
             break;
             
@@ -249,12 +265,34 @@ static TSAppstorePay* FCshareView = nil;
     }
 }
 
+- (void)dealSuccessMessage:(NSString*)msg finalDict:(NSDictionary*)finalDict
+{
+//    [CommTool showStaus:msg withType:TSMessageTypeInfo];
+    
+    [self iapSuccess:finalDict];
+    
+    // 删除本地票据
+    [[IAPManager shareInstance] removeReceipt];
+}
+
+- (void)dealFailMessage:(NSString*)msg finalDict:(NSDictionary*)finalDict isDeleteReceipt:(BOOL)isDelete
+{
+//    [CommTool showStaus:msg withType:TSMessageTypeError];
+    
+    [self iapFail:finalDict];
+    
+    if (isDelete) {
+        // 删除本地票据
+        [[IAPManager shareInstance] removeReceipt];
+    }
+}
+
 - (void)stopStorePay
 {
     [[IAPManager shareInstance] stopManager];
 }
 
-#pragma mark - iap trade back
+#pragma mark - iap trade callback
 
 - (void)iapSuccess:(NSDictionary*)result
 {
@@ -283,6 +321,5 @@ static TSAppstorePay* FCshareView = nil;
         [_delegate TSAppPayClosePayPage:result];
     }
 }
-
 
 @end

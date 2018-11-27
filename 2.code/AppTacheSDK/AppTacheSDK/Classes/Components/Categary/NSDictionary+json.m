@@ -1,9 +1,9 @@
 //
 //  NSDictionary+json.m
-//  FuncellPlatform
+//  apptache
 //
 //  Created by admin on 17/4/27.
-//  Copyright © 2017年 huxin. All rights reserved.
+//  Copyright © 2017年 apptache. All rights reserved.
 //
 
 #import "NSDictionary+json.h"

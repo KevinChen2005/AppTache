@@ -12,7 +12,7 @@ static NSString * const receiptKey    = @"receipt";
 static NSString * const dateKey       = @"date";
 static NSString * const accountKey    = @"account";
 static NSString * const orderKey      = @"orderId";
-static NSString * const cporderKey    = @"cpOrderNo";
+static NSString * const cporderKey    = @"cpOrderId";
 static NSString * const priceKey      = @"price";
 static NSString * const extinfoKey    = @"extInfo";
 static NSString * const payMethodKey  = @"payMethodCode";
@@ -44,7 +44,7 @@ dispatch_queue_t iap_queue() {
 
 @property (nonatomic, copy) NSString *itemId;  //商品id
 
-@property (nonatomic, copy) NSString *cpOrderNo; //cp订单号
+@property (nonatomic, copy) NSString *cpOrderId; //cp订单号
 
 @property (nonatomic, copy) NSString *price; //价格，单位：分
 
@@ -96,18 +96,18 @@ SingleM
 }
 
 #pragma mark 查询
-- (void)requestProductWithId:(NSString *)productId orderId:(NSString*)orderId account:(NSString*)account cpOrderNo:(NSString*)cpOrderNo price:(NSString*)price extInfo:(NSString*)extInfo {
+- (void)requestProductWithId:(NSString *)productId orderId:(NSString*)orderId account:(NSString*)account cpOrderId:(NSString*)cpOrderId price:(NSString*)price extInfo:(NSString*)extInfo {
     
     self.account = [CommTool safeString:account];
     self.orderId = [CommTool safeString:orderId];
     self.itemId  = [CommTool safeString:productId];
-    self.cpOrderNo = [CommTool safeString:cpOrderNo];
+    self.cpOrderId = [CommTool safeString:cpOrderId];
     self.extInfo = [CommTool safeString:extInfo];
     self.price   = [CommTool safeString:price];
     
     self.orderInfo =[NSDictionary dictionaryWithObjectsAndKeys:
                                          self.orderId,             orderKey,
-                                         self.cpOrderNo,           cporderKey,
+                                         self.cpOrderId,           cporderKey,
                                          self.extInfo,             extinfoKey,
                                          self.price,               priceKey,
                                        kPayMethodApple,            payMethodKey,
@@ -297,7 +297,7 @@ SingleM
     
     NSString *savedPath = [NSString stringWithFormat:@"%@/%@.plist", [SandBoxHelper iapReceiptAccountPath:kOrderInfofolder], fileName];
     
-    NSLog(@"orderInfo savedPath = %@", savedPath);
+//    NSLog(@"orderInfo savedPath = %@", savedPath);
     
     [self.orderInfo writeToFile:savedPath atomically:YES];
 }
@@ -318,12 +318,12 @@ SingleM
             if ([name hasSuffix:@".plist"]){ //如果有plist后缀的文件，说明就是存储的购买凭证
                 
                 NSString *filePath = [NSString stringWithFormat:@"%@/%@", [SandBoxHelper iapReceiptAccountPath:kOrderInfofolder], name];
-                NSLog(@"filePath=%@", filePath);
+//                NSLog(@"filePath=%@", filePath);
                 
                 self.orderInfo = [[NSDictionary alloc] initWithContentsOfFile:filePath];
                 
                 self.orderId = self.orderInfo[orderKey];
-                self.cpOrderNo = self.orderInfo[cporderKey];
+                self.cpOrderId = self.orderInfo[cporderKey];
                 self.extInfo = self.orderInfo[extinfoKey];
                 self.price = self.orderInfo[priceKey];
                 
@@ -369,20 +369,18 @@ SingleM
    
     NSString *savedPath = [NSString stringWithFormat:@"%@/%@.plist", [SandBoxHelper iapReceiptAccountPath:self.account], fileName];
     
-    NSLog(@"savedPath = %@", savedPath);
+//    NSLog(@"savedPath = %@", savedPath);
     
     NSDictionary *dic =[NSDictionary dictionaryWithObjectsAndKeys:
                         self.receipt,             receiptKey,
                         self.date,                dateKey,
                         self.account,             accountKey,
                         self.orderId,             orderKey,
-                        self.cpOrderNo,           cporderKey,
+                        self.cpOrderId,           cporderKey,
                         self.extInfo,             extinfoKey,
                         self.price,               priceKey,
                         kPayMethodApple,          payMethodKey,
                         nil];
-   
-    NSLog(@"%@",savedPath);
     
     [dic writeToFile:savedPath atomically:YES];
 }
@@ -408,7 +406,7 @@ SingleM
             if ([name hasSuffix:@".plist"]){ //如果有plist后缀的文件，说明就是存储的购买凭证
                
                 NSString *filePath = [NSString stringWithFormat:@"%@/%@", [SandBoxHelper iapReceiptAccountPath:self.account], name];
-                NSLog(@"filePath=%@", filePath);
+//                NSLog(@"filePath=%@", filePath);
                 [self sendAppStoreRequestBuyPlist:filePath];
             }
         }

@@ -224,7 +224,7 @@
         struct ifaddrs * cursor;
         const struct sockaddr_dl *dlAddr;
         const unsigned char* base;
-        int i;
+        int i=0;
         
         success = getifaddrs(&addrs) == 0;
         if (success) {

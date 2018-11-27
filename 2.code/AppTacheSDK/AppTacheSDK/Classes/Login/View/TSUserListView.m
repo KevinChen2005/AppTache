@@ -78,7 +78,7 @@
     NSString *a = [_dataList objectAtIndex:row];
     cell.textLabel.text = a;
     
-    if (indexPath.row == self.dataList.count - 1) {//关闭
+    if (indexPath.row == self.dataList.count - 1) {//最后一行为关闭
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
     } else {
         cell.textLabel.textAlignment = NSTextAlignmentLeft;
@@ -87,6 +87,7 @@
     return cell;
 }
 
+// 点击删除某一行后回调
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -113,6 +114,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //最后一行为关闭，不允许删除
     if (indexPath.row < [_dataList count] - 1)
         return YES;
     else
@@ -140,10 +142,12 @@
     return UITableViewCellEditingStyleDelete;
 }
 
+// 关闭账号列表
 -(void)onClose
 {
     [self removeFromSuperview];
     
+    //回调
     if ([_delegate respondsToSelector:@selector(onUserClosed)]) {
         [_delegate onUserClosed];
     }

@@ -55,8 +55,8 @@
         
         // 2.1 show/hide button
         UIButton* showUserListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [showUserListBtn setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e022", 22, FJColorDarkGray)] forState:UIControlStateNormal];
-        [showUserListBtn setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e023", 22, FJColorDarkGray)] forState:UIControlStateSelected];
+        [showUserListBtn setImage:kIconFontImageArrowDownGray forState:UIControlStateNormal];
+        [showUserListBtn setImage:kIconFontImageArrowUpGray forState:UIControlStateSelected];
         showUserListBtn.layer.borderColor = [UIColor lightTextColor].CGColor;
         [self.contentView addSubview:showUserListBtn];
         self.showUserListBtn = showUserListBtn;
@@ -79,7 +79,13 @@
             make.top.mas_equalTo(loginTitle.mas_bottom).offset(1);
             make.right.mas_equalTo(showUserListBtn.mas_left).offset(-1);
             make.bottom.mas_equalTo(username).offset(-1);
-            make.width.mas_equalTo(@0.4);
+            
+            if ([[UIDevice currentDevice].systemVersion floatValue] < 10.0) {
+                make.width.mas_equalTo(@0.8);
+            } else {
+                make.width.mas_equalTo(@0.4);
+            }
+            
         }];
         
         // 3. password
@@ -101,8 +107,8 @@
         
         // 3.1 show/hide password button
         UIButton* showPasswordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [showPasswordBtn setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e025", 22, FJColorDarkGray)] forState:UIControlStateNormal];
-        [showPasswordBtn setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e024", 22, FJColorDarkGray)] forState:UIControlStateSelected];
+        [showPasswordBtn setImage:kIconFontImageHidePwdGray forState:UIControlStateNormal];
+        [showPasswordBtn setImage:kIconFontImageShowPwdGray forState:UIControlStateSelected];
         showPasswordBtn.layer.cornerRadius = 5;
         [self.contentView addSubview:showPasswordBtn];
         
@@ -124,7 +130,12 @@
             make.top.mas_equalTo(password).offset(1);
             make.right.mas_equalTo(showPasswordBtn.mas_left).offset(-1);
             make.bottom.mas_equalTo(password).offset(-1);
-            make.width.mas_equalTo(@0.4);
+            
+            if ([[UIDevice currentDevice].systemVersion floatValue] < 10.0) {
+                make.width.mas_equalTo(@0.8);
+            } else {
+                make.width.mas_equalTo(@0.4);
+            }
         }];
         
         // 4. phoneRegiterBtn
@@ -275,7 +286,7 @@
 }
 
 #pragma mark - Keyboard notification
-
+//收到键盘通知
 - (void)onKeyboardNotification:(NSNotification *)notification
 {
     [self closeUserListView];
@@ -299,7 +310,7 @@
         NSString *token = [user objectForKey:@"refresh_token"];
         NSString *password = [user objectForKey:@"password"];
         if (time != nil && [time longLongValue] + 2592000 > [[CommTool getTimeStamp] longLongValue]
-            && token && [token length] > 0){//30天失效
+            && token && [token length] > 0){ //30天失效
             self.username.text = [user objectForKey:@"username"];
             self.password.text = password;
         } else {
@@ -399,6 +410,7 @@
     }
 }
 
+#pragma mark - UITextFieldDelegate
 //实现代理<UITextFieldDelegate>
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {

@@ -4,7 +4,7 @@
 //
 //  Created by admin on 2018/9/19.
 //  Copyright © 2018年 com.apptache. All rights reserved.
-//  登录结果model
+//  登录结果model，用于记录服务器返回的登录信息
 
 #import "BaseModel.h"
 
@@ -18,7 +18,7 @@ SingleH
 @property(nonatomic,copy) NSString *account;
 
 /**
- *  用户账号
+ *  用户唯一标识
  */
 @property(nonatomic,copy) NSString *fid;
 

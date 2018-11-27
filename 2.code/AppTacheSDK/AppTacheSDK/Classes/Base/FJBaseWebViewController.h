@@ -3,7 +3,7 @@
 //  AppTache
 //
 //  Created by admin on 2018/7/10.
-//  Copyright © 2018年 com.langlun. All rights reserved.
+//  Copyright © 2018年 com.apptache. All rights reserved.
 //
 
 #import "FJBaseViewController.h"
@@ -20,7 +20,7 @@
  */
 @property(nonatomic, copy)NSString *htmlString;
 
--(void)webViewDidFinishLoad:(UIWebView *)webView;
+- (void)webViewDidFinishLoad:(UIWebView *)webView;
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 

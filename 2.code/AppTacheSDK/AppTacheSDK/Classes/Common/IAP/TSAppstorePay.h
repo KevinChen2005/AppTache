@@ -1,10 +1,10 @@
 //
 //  TSAppstorePay.h
-//  funcell_framework
+//  AppTache
 //
 //  Created by admin on 17/6/15.
-//  Copyright © 2017年 zzw. All rights reserved.
-//
+//  Copyright © 2018年 zzw. All rights reserved.
+//  苹果内购
 
 #import <UIKit/UIKit.h>
 

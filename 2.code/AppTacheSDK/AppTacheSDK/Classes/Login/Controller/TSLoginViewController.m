@@ -41,6 +41,13 @@
     self.registerView.hidden = YES;
 }
 
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    [self updateConstraint];
+}
+
 - (void)updateConstraint
 {
     // 1.设置loginView约束
@@ -53,16 +60,16 @@
                 make.width.mas_equalTo(@(minWidth * 0.55));
                 make.height.mas_equalTo(@(minWidth * 0.5));
             } else {
-            make.width.mas_equalTo(@(minWidth * 1.1));
-            make.height.mas_equalTo(@(minWidth * (minWidth>320 ? 0.9 : 0.95)));
+                make.width.mas_equalTo(@(minWidth * 1.1));
+                make.height.mas_equalTo(@(minWidth * (minWidth>320 ? 0.9 : 0.95)));
             }
         } else { // 竖屏
             if (isIpad) {
                 make.width.mas_equalTo(@(minWidth * 0.55));
                 make.height.mas_equalTo(@(minWidth * 0.5));
             } else {
-            make.width.mas_equalTo(@(minWidth * (minWidth>320 ? 0.9 : 1.0)));
-            make.height.mas_equalTo(@(minWidth * (minWidth>320 ? 0.9 : 0.95)));
+                make.width.mas_equalTo(@(minWidth * (minWidth>320 ? 0.9 : 1.0)));
+                make.height.mas_equalTo(@(minWidth * (minWidth>320 ? 0.9 : 0.95)));
             }
         }
     }];
@@ -92,6 +99,7 @@
     }];
 }
 
+// 监控触摸控制器视图
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
@@ -107,16 +115,11 @@
         return;
     }
     
+    //点击蒙版退出登录框
 //    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
-    
-    [self updateConstraint];
-}
-
+// 退出登录控制器
 - (void)onCloseLoginView
 {
     if ([NSThread currentThread].isMainThread) {
@@ -128,8 +131,14 @@
     }    
 }
 
-#pragma mark - TSLoginViewDelegate
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
+#pragma mark - 登录页面回调TSLoginViewDelegate
+
+//点击登录
 - (void)loginView:(TSLoginView *)loginView onClickLogin:(UIButton *)sender username:(NSString*)username password:(NSString*)password
 {
     DLog();
@@ -143,7 +152,7 @@
     }];
 }
 
-//游客登录
+//点击游客登录
 - (void)loginView:(TSLoginView *)loginView onClickTouristLogin:(UIButton *)sender
 {
     DLog();
@@ -157,6 +166,7 @@
     }];
 }
 
+//点击手机注册
 - (void)loginView:(TSLoginView *)loginView onClickPhoneRegister:(UIButton *)sender
 {
     DLog();
@@ -166,6 +176,7 @@
     self.registerView.hidden = NO;
 }
 
+//点击忘记密码
 - (void)loginView:(TSLoginView *)loginView onClickForgetPassword:(UIButton *)sender
 {
     DLog();
@@ -192,13 +203,9 @@
     });
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+#pragma mark - 注册页面回调TSRegisterViewDelegate
 
-#pragma mark - TSRegisterViewDelegate
-
+//点击注册按钮
 - (void)registerView:(TSRegisterView*)loginView onClickRegister:(UIButton*)sender phone:(NSString*)phone code:(NSString*)code
 {
     DLog();
@@ -210,6 +217,7 @@
     }];
 }
 
+//点击用户协议
 - (void)registerView:(TSRegisterView*)loginView onClickShowProtocol:(UIButton*)sender
 {
     DLog();
@@ -217,6 +225,7 @@
     [[SdkManager shareInstance] sdkShowUserProtocol:self];
 }
 
+//点击返回登录按钮
 - (void)registerView:(TSRegisterView*)loginView onClickBackLogin:(UIButton*)sender
 {
     DLog();
@@ -224,6 +233,7 @@
     self.registerView.hidden = YES;
 }
 
+//点击获取验证码按钮
 - (void)registerView:(TSRegisterView*)loginView onClickVerifyCode:(UIButton*)sender phone:(NSString*)phone
 {
     DLog();

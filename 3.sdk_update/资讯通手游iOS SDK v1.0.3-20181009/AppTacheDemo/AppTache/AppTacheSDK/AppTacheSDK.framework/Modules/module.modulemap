@@ -1,0 +1,6 @@
+framework module AppTacheSDK {
+  umbrella header "AppTacheSDK.h"
+
+  export *
+  module * { export * }
+}

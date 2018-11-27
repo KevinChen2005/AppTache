@@ -46,8 +46,8 @@
         // 颜色
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-        [button setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e021", 22, FJColorWhite)] forState:UIControlStateNormal];
-        [button setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000e021", 22, FJColorWhite)] forState:UIControlStateHighlighted];
+        [button setImage:kIconFontImageBackWhite forState:UIControlStateNormal];
+        [button setImage:kIconFontImageBackWhite forState:UIControlStateHighlighted];
         
         [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
 

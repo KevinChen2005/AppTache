@@ -8,7 +8,7 @@
 
 #import "CommTool.h"
 
-
+dispatch_semaphore_t semaphore = nil;
 
 @implementation CommTool
 
@@ -55,13 +55,28 @@
  */
 + (void)showStaus:(NSString*)message withType:(TSMessageType)type
 {
-    if ([[NSThread currentThread] isMainThread]) {
-        [self showMessage:message withType:type];
-    } else {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        semaphore = dispatch_semaphore_create(1);
+    });
+    
+    //让消息顺序显示
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self showStaus:message withType:type];
+            [self showMessage:message withType:type];
         });
-    }
+    });
+    
+//    if ([[NSThread currentThread] isMainThread]) {
+//        [self showMessage:message withType:type];
+//    } else {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self showStaus:message withType:type];
+//        });
+//    }
 }
 
 /**
@@ -70,17 +85,9 @@
 + (void)showMessage:(NSString*)message withType:(TSMessageType)type
 {
     if ([message isNullString]) {
+        NSLog(@"message is NULL");
         return;
     }
-    
-//    static BOOL bShowStatus = NO;
-//
-//    if (bShowStatus) {
-//        DLog(@"正在显示消息。。。");
-//        return;
-//    }
-//    
-//    bShowStatus = YES;
     
     // 1.创建一个UILabel
     UILabel *label = [[UILabel alloc] init];
@@ -101,15 +108,15 @@
     switch (type) {
         case TSMessageTypeInfo:
             label.backgroundColor = FJRGBColor(0, 130, 188);
-            delay = 1.0;
+            delay = 1.5;
             break;
         case TSMessageTypeError:
             label.backgroundColor = FJColorRed;
-            delay = 1.3;
+            delay = 1.5;
             break;
         case TSMessageTypeWarnning:
             label.backgroundColor = FJColorLoginOrange;
-            delay = 1.0;
+            delay = 1.5;
             break;
         default:
             label.backgroundColor = FJRGBColor(0, 130, 188);
@@ -119,14 +126,19 @@
     UIWindow* window = [self getCurrentWindow];
     
     // 4.设置frame
-    if (kScreenWidth < kScreenHeight) {
+    if (kScreenWidth < kScreenHeight || kScreenWidth < 800) {
         label.fj_width = window.fj_width * 0.8;
     } else {
         label.fj_width = window.fj_width * 0.6;
     }
     label.fj_height = 54;
     label.fj_centerX = window.fj_centerX;
-    label.fj_centerY = 0 - label.fj_height * 0.5;
+    
+    if (IS_IPhoneX_All && IsPortrait) {
+        label.fj_centerY = 0 - label.fj_height * 0.5 + 34;
+    } else {
+        label.fj_centerY = 0 - label.fj_height * 0.5;
+    }
     
     // 5.添加到导航控制器的view
     [window addSubview:label];
@@ -150,7 +162,8 @@
             
             // 删除控件
             [label removeFromSuperview];
-//            bShowStatus = NO;
+            
+            dispatch_semaphore_signal(semaphore);
         }];
     }];
 }
@@ -165,7 +178,7 @@
     return path;
 }
 
-+(NSString *) getTimeStamp  //启动时间戳
++(NSString *) getTimeStamp  //时间戳
 {
     NSDate *date = [NSDate date];
     NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];

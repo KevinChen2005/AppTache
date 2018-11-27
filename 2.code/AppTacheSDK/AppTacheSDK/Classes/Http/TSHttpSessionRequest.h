@@ -12,8 +12,10 @@ typedef void(^SessionBlock)(NSData* data, NSURLResponse* response, NSError* erro
 
 @interface TSHttpSessionRequest : NSObject
 
+// POST请求下，请求体参数为json的形式
 + (void)sessionRequestDataTask:(NSString *)url andMethod:(NSString*)method andDataStr:(NSString *)pdata andblock:(SessionBlock)block;
 
+// POST请求下，请求体参数为key1=value1&key2=value2...的形式
 + (void)sessionRequestDataTask:(NSString *)url andMethod:(NSString*)method andDictData:(NSDictionary *)params andblock:(SessionBlock)block;
 
 @end

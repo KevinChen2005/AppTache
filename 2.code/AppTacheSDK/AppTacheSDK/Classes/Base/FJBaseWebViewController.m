@@ -3,7 +3,7 @@
 //  AppTache
 //
 //  Created by admin on 2018/7/10.
-//  Copyright © 2018年 com.langlun. All rights reserved.
+//  Copyright © 2018年 com.apptache. All rights reserved.
 //
 
 #import "FJBaseWebViewController.h"
@@ -52,7 +52,7 @@
     }else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    self.webView.scrollView.contentInset = UIEdgeInsetsMake(iphoneX? 88 : 64, 0, 0, 0);
+    self.webView.scrollView.contentInset = UIEdgeInsetsMake(IS_IPhoneX_All? 88 : 64, 0, 0, 0);
     self.webView.scrollView.scrollIndicatorInsets = self.webView.scrollView.contentInset;
 }
 
