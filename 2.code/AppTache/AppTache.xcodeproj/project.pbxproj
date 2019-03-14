@@ -1113,8 +1113,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P9L47388DW;
-				GCC_PREFIX_HEADER = "/Users/admin/Desktop/chenyuan/项目-z/lin_switch_payment/2.code/AppTacheSDK/AppTacheSDK/Classes/Others/PrefixHeader.pch";
+				DEVELOPMENT_TEAM = 377TWHQDKJ;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/../AppTacheSDK/AppTacheSDK/Classes/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = AppTache/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1122,7 +1122,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apptache.Apptache;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apptache.AppTache;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1136,8 +1136,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P9L47388DW;
-				GCC_PREFIX_HEADER = "/Users/admin/Desktop/chenyuan/项目-z/lin_switch_payment/2.code/AppTacheSDK/AppTacheSDK/Classes/Others/PrefixHeader.pch";
+				DEVELOPMENT_TEAM = 377TWHQDKJ;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/../AppTacheSDK/AppTacheSDK/Classes/Others/PrefixHeader.pch";
 				INFOPLIST_FILE = AppTache/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1145,7 +1145,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apptache.Apptache;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apptache.AppTache;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -12,8 +12,8 @@
 
 SingleH
 
-@property (nonatomic, copy)NSString* platformId;  // 资讯通分配的platformId
+@property (nonatomic, copy)NSString* platformId;  // 数字游玩分配的platformId
 
-@property (nonatomic, copy)NSString* gameCode;    // 资讯通分配的gameCode
+@property (nonatomic, copy)NSString* gameCode;    // 数字游玩分配的gameCode
 
 @end

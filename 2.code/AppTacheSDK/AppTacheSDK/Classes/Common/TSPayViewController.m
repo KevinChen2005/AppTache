@@ -9,8 +9,8 @@
 #import "TSPayViewController.h"
 #import "HYBJsObjCModel.h"
 
-#define APP_Scheme_host @"www.xdragonnet.com" //用于第三方支付完成后跳转，应用中需要设置该scheme
-#define APP_Scheme      @"www.xdragonnet.com://"
+#define APP_Scheme_host @"www.fjszyw.com" //用于第三方支付完成后跳转，应用中需要设置该scheme
+#define APP_Scheme      @"www.fjszyw.com://"
 
 @interface TSPayViewController ()<HYBJsObjCModelDelegate>
 {

@@ -14,7 +14,7 @@
 //#   define DLog(...)
 //#endif
 
-#define kSdkVersion    @"1.0.6"
+#define kSdkVersion    @"1.1.0"
 
 #define WEAKSELF typeof(self) __weak weakSelf = self;
 #define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;
@@ -26,18 +26,18 @@
 
 #if DevelopSever
 /**开发服务器*/
-#define URL_MAIN @"http://139.199.214.210:7001"
+#define URL_MAIN @"http://134.175.253.24:7001"
 #elif TestSever
 /**测试服务器*/
-#define URL_MAIN @"http://139.199.214.210:7001"
+#define URL_MAIN @"http://134.175.253.24:7001"
 #elif ProductSever
 /**生产服务器*/
-#define URL_MAIN @"http://139.199.214.210:7001"
+#define URL_MAIN @"http://134.175.253.24:7001"
 #endif
 #define kUrl(sub) [NSString stringWithFormat:@"%@/%@", URL_MAIN, sub]
 
 //用户协议URL
-#define kUrlUserProtocol @"http://www.fjzixun.com/contract.html"
+#define kUrlUserProtocol @"http://flooringpage.fjszyw.com/readme/contract.html"
 
 //闪屏后启动时间（广告时间）
 #define kLaunchCountDown 4
@@ -63,7 +63,7 @@
 #define FJNavbarItemFont [UIFont systemFontOfSize:14]
 
 //--------------------------------------------
-#define FJTextSDKName           @"资讯通手游"
+#define FJTextSDKName           @"数字游玩手游"
 #define FJTextSDKLoginName      @"用户登录"
 #define FJTextSDKRegisterName   @"手机注册"
 #define FJTextSDKInitPwdTips    @"如未修改初始密码，默认初始密码为666666"

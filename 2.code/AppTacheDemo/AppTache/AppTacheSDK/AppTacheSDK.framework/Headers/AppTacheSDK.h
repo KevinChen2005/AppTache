@@ -37,8 +37,8 @@ typedef NS_ENUM(NSInteger, ATDataType)
 /*
  初始化
  
- @param1: gameCode       由资讯通分配;
- @param2: platformId     由资讯通分配;
+ @param1: gameCode       由数字游玩分配;
+ @param2: platformId     由数字游玩分配;
  */
 - (void)initSdkWithGameCode:(NSString*)gameCode platformId:(NSString*)platformId;
 
