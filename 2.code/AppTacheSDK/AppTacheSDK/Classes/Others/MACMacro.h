@@ -14,7 +14,7 @@
 //#   define DLog(...)
 //#endif
 
-#define kSdkVersion    @"1.1.0"
+#define kSdkVersion    @"1.1.1"
 
 #define WEAKSELF typeof(self) __weak weakSelf = self;
 #define STRONGSELF typeof(weakSelf) __strong strongSelf = weakSelf;

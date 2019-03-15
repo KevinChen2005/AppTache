@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		842B3FAE215B27F100AA49A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842B3FAC215B27F000AA49A5 /* Main.storyboard */; };
 		842B4037215B837F00AA49A5 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 842B4036215B837E00AA49A5 /* JavaScriptCore.framework */; };
+		84364BF1223B75FA007947C1 /* AppTacheSDK.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84364BF0223B75FA007947C1 /* AppTacheSDK.plist */; };
 		84A9139D2148ED0F00D80E63 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A9139C2148ED0F00D80E63 /* AppDelegate.m */; };
 		84A913A02148ED0F00D80E63 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A9139F2148ED0F00D80E63 /* ViewController.m */; };
 		84A913A52148ED1000D80E63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A913A42148ED1000D80E63 /* Assets.xcassets */; };
@@ -106,6 +107,7 @@
 /* Begin PBXFileReference section */
 		842B3FAD215B27F000AA49A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		842B4036215B837E00AA49A5 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		84364BF0223B75FA007947C1 /* AppTacheSDK.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = AppTacheSDK.plist; sourceTree = "<group>"; };
 		84A913982148ED0F00D80E63 /* AppTache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppTache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A9139B2148ED0F00D80E63 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84A9139C2148ED0F00D80E63 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 		84CAB47B216EF3C7002173EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				84364BF0223B75FA007947C1 /* AppTacheSDK.plist */,
 				84CAB47C216EF3C7002173EB /* AppTacheSDK.bundle */,
 			);
 			path = Resources;
@@ -873,6 +876,7 @@
 				84CAB59B216EF3C8002173EB /* SVProgressHUD.bundle in Resources */,
 				84CAB554216EF3C8002173EB /* AppTacheSDK.bundle in Resources */,
 				84CAB5A2216EF3C8002173EB /* IQKeyboardManager.bundle in Resources */,
+				84364BF1223B75FA007947C1 /* AppTacheSDK.plist in Resources */,
 				84A913A52148ED1000D80E63 /* Assets.xcassets in Resources */,
 				842B3FAE215B27F100AA49A5 /* Main.storyboard in Resources */,
 			);

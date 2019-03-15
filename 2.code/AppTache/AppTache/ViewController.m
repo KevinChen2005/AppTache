@@ -27,7 +27,7 @@
 - (IBAction)onClickInitBtn:(id)sender
 {
     [[AppTacheSDK sharedInstance] setDelegate:self];
-    [[AppTacheSDK sharedInstance] initSdkWithGameCode:@"SO2E656BBAD55F300001" platformId:@"1000"];
+    [[AppTacheSDK sharedInstance] initSdk];
 //    [[AppTacheSDK sharedInstance] initSdkWithGameCode:@"OGjIDRXJ1p" platformId:@"1000"];
 //    [[AppTacheSDK sharedInstance]  initSdkWithGameCode: @"7LkgmdumXu" platformId:@"000211"];
 }

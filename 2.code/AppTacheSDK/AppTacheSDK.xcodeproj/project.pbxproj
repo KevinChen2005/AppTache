@@ -195,6 +195,7 @@
 		842B3FA2215A34F200AA49A5 /* SandBoxHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandBoxHelper.m; sourceTree = "<group>"; };
 		842B3FA5215A35E200AA49A5 /* NSDate+category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+category.h"; path = "AppTacheSDK/Classes/Components/NSDate+category.h"; sourceTree = SOURCE_ROOT; };
 		842B3FA6215A35E200AA49A5 /* NSDate+category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+category.m"; path = "AppTacheSDK/Classes/Components/NSDate+category.m"; sourceTree = SOURCE_ROOT; };
+		84364BF2223B7946007947C1 /* AppTacheSDK.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = AppTacheSDK.plist; sourceTree = "<group>"; };
 		8476D338215CB2230038A76B /* JavaScriptObjectiveCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JavaScriptObjectiveCDelegate.h; sourceTree = "<group>"; };
 		8476D339215CB2230038A76B /* HYBJsObjCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBJsObjCModel.m; sourceTree = "<group>"; };
 		8476D33B215CB2230038A76B /* HYBJsObjCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYBJsObjCModel.h; sourceTree = "<group>"; };
@@ -447,6 +448,7 @@
 		84A916F22159E4A400D80E63 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				84364BF2223B7946007947C1 /* AppTacheSDK.plist */,
 				84A916FA2159E4A400D80E63 /* AppTacheSDK.bundle */,
 			);
 			path = Resources;

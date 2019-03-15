@@ -55,8 +55,22 @@ static AppTacheSDK* _instance = nil;
 /*
  初始化
  */
-- (void)initSdkWithGameCode:(NSString *)gameCode platformId:(NSString *)platformId
+- (void)initSdk
 {
+    //读取配置文件初始化
+    NSString* plistpath = [[NSBundle mainBundle] pathForResource:@"AppTacheSDK" ofType:@"plist"];
+    NSMutableDictionary* filedic = [[NSMutableDictionary alloc] initWithContentsOfFile:plistpath];
+    NSString* gameCode = [filedic objectForKey:@"gameCode"];
+    NSString* platformId = [filedic objectForKey:@"platformId"];
+    
+    if (gameCode == nil) {
+        gameCode = @"";
+    }
+    
+    if (platformId == nil) {
+        platformId = @"";
+    }
+    
     DLog(@"gameCode=%@, platformId=%@", gameCode, platformId);
     
     [TSAppModel shareInstance].gameCode = [CommTool safeString:gameCode];
